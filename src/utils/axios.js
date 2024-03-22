@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios';
+import firebase from 'firebase/compat/app';
 
 const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL || 'http://localhost:3010/' });
 
@@ -10,7 +11,8 @@ const axiosServices = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL |
 
 axiosServices.interceptors.request.use(
     async (config) => {
-        const accessToken = localStorage.getItem('serviceToken');
+        // const accessToken = localStorage.getItem('idToken');
+        const accessToken = await firebase.auth().currentUser.getIdToken();
         if (accessToken) {
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
@@ -25,7 +27,8 @@ axiosServices.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response.status === 401 && !window.location.href.includes('/login')) {
-            window.location.pathname = '/login';
+            // localStorage.removeItem('idToken');
+            window.location.assign('/login');
         }
         return Promise.reject((error.response && error.response.data) || 'Wrong Services');
     }

@@ -7,7 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 
 // project imports
-import UserList from './UserList';
+import TasksUserList from './TasksUserList';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
@@ -46,7 +46,7 @@ const ListStylePage1 = () => {
             title={
                 <Grid container alignItems="center" justifyContent="space-between" spacing={gridSpacing}>
                     <Grid item>
-                        <Typography variant="h3">Users: List</Typography>
+                        <Typography variant="h3">Tasks: User List</Typography>
                     </Grid>
                     <Grid item>
                         <OutlinedInput
@@ -65,7 +65,7 @@ const ListStylePage1 = () => {
             }
             content={false}
         >
-            <UserList data={data} isLoading={isLoading} rowsPerPage={rowsPerPage} />
+            <TasksUserList data={data} isLoading={isLoading} rowsPerPage={rowsPerPage} />
             <PaginationCustom
                 totalEntries={totalEntries}
                 currentPage={currentPage}

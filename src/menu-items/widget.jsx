@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { useGetMenu } from 'api/menu';
 
 // assets
-import { IconChartArcs, IconClipboardList, IconChartInfographic, IconLoader } from '@tabler/icons-react';
+import { IconChartArcs, IconClipboardList, IconChartInfographic } from '@tabler/icons-react';
 
 const icons = {
     widget: IconChartArcs,
@@ -14,32 +14,32 @@ const icons = {
     chart: IconChartInfographic
 };
 
-const loadingMenu = {
+export const loadingMenu = {
     id: 'group-widget-loading',
     title: <FormattedMessage id="widget" />,
     type: 'group',
     children: [
         {
             id: 'statistics1',
-            title: 'loading',
+            title: 'Statistics',
             type: 'item',
-            icon: IconLoader,
+            icon: icons.statistics,
             url: '/widget/statistics',
             breadcrumbs: false
         },
         {
             id: 'data1',
-            title: 'loading',
+            title: 'Data',
             type: 'item',
-            icon: IconLoader,
+            icon: icons.data,
             url: '/widget/data',
             breadcrumbs: false
         },
         {
             id: 'chart1',
-            title: 'loading',
+            title: 'Charts',
             type: 'item',
-            icon: IconLoader,
+            icon: icons.chart,
             url: '/widget/chart',
             breadcrumbs: false
         }

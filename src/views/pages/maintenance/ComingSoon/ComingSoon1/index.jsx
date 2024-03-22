@@ -31,7 +31,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 
-import logo from 'assets/images/logo.svg';
+import logo from 'assets/images/logo.png';
 import logoDark from 'assets/images/logo-dark.svg';
 import companyLogo from 'assets/images/maintenance/img-ct-logo.png';
 import imageBackground from 'assets/images/maintenance/img-soon-bg.svg';

@@ -3,22 +3,22 @@ import { memo } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
+// import Avatar from '@mui/material/Avatar';
+// import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import LinearProgress from '@mui/material/LinearProgress';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
+// import List from '@mui/material/List';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemAvatar from '@mui/material/ListItemAvatar';
+// import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 import { linearProgressClasses } from '@mui/material/LinearProgress';
 import { ThemeMode } from 'config';
 
 // assets
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+// import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 // ==============================|| PROGRESS BAR WITH LABEL ||============================== //
 
@@ -90,7 +90,7 @@ const MenuCard = () => {
                 }
             }}
         >
-            <Box sx={{ p: 2 }}>
+            {/* <Box sx={{ p: 2 }}>
                 <List disablePadding sx={{ m: 0 }}>
                     <ListItem alignItems="flex-start" disableGutters disablePadding>
                         <ListItemAvatar sx={{ mt: 0 }}>
@@ -123,7 +123,7 @@ const MenuCard = () => {
                     </ListItem>
                 </List>
                 <LinearProgressWithLabel value={80} />
-            </Box>
+            </Box> */}
         </Card>
     );
 };

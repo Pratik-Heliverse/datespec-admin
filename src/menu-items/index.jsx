@@ -1,17 +1,19 @@
 import dashboard from './dashboard';
 import application from './application';
-import forms from './forms';
+// import forms from './forms';
 import elements from './elements';
-import samplePage from './sample-page';
-import pages from './pages';
-import utilities from './utilities';
-import support from './support';
-import other from './other';
+// import samplePage from './sample-page';
+// import pages from './pages';
+// import utilities from './utilities';
+// import support from './support';
+// import other from './other';
+import { loadingMenu as widgets } from './widget';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, application, forms, elements, samplePage, pages, utilities, support, other]
+    // items: [dashboard, application, forms, elements, samplePage, pages, utilities, support, other]
+    items: [widgets, dashboard, application, elements]
 };
 
 export default menuItems;

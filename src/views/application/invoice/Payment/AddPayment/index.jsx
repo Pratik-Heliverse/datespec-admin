@@ -36,7 +36,7 @@ import { ThemeMode } from 'config';
 
 import { dispatch, useSelector } from 'store';
 import { gridSpacing } from 'store/constant';
-import { getDetailCards } from 'store/slices/user';
+import { getDetailCards } from 'store/slices/user2';
 import { openSnackbar } from 'store/slices/snackbar';
 import { getInvoice } from 'store/slices/customer';
 

@@ -11,7 +11,7 @@ import FollowerCard from 'ui-component/cards/FollowerCard';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
-import { getFollowers, filterFollowers } from 'store/slices/user';
+import { getFollowers, filterFollowers } from 'store/slices/user2';
 
 // assets
 import { IconSearch } from '@tabler/icons-react';

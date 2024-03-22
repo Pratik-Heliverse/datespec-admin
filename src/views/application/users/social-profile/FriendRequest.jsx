@@ -11,7 +11,7 @@ import FriendRequestCard from 'ui-component/cards/FriendRequestCard';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
-import { getFriendRequests, filterFriendRequests } from 'store/slices/user';
+import { getFriendRequests, filterFriendRequests } from 'store/slices/user2';
 
 // assets
 import { IconSearch } from '@tabler/icons-react';

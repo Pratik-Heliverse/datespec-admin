@@ -19,7 +19,7 @@ import { ThemeMode } from 'config';
 
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
-import { getPosts, editComment, addComment, addReply, likePost, likeComment, likeReply } from 'store/slices/user';
+import { getPosts, editComment, addComment, addReply, likePost, likeComment, likeReply } from 'store/slices/user2';
 
 // assets
 import AttachmentTwoToneIcon from '@mui/icons-material/AttachmentTwoTone';

@@ -12,7 +12,7 @@ import ClientTable from './ClientTable';
 import MainCard from 'ui-component/cards/MainCard';
 
 import { dispatch, useSelector } from 'store';
-import { getDetailCards } from 'store/slices/user';
+import { getDetailCards } from 'store/slices/user2';
 
 // ==============================|| CLIENT LIST ||============================== //
 

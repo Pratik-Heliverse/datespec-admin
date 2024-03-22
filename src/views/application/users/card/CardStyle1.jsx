@@ -15,7 +15,7 @@ import UserDetailsCard from 'ui-component/cards/UserDetailsCard';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
-import { getDetailCards, filterDetailCards } from 'store/slices/user';
+import { getDetailCards, filterDetailCards } from 'store/slices/user2';
 
 // assets
 import { IconSearch } from '@tabler/icons-react';

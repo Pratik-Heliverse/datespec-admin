@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { LOGOUT } from 'store/actions';
 
 // project imports
 import useAuth from 'hooks/useAuth';
@@ -16,6 +17,8 @@ import { DASHBOARD_PATH } from 'config';
 const GuestGuard = ({ children }) => {
     const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
+
+    // async function checkTokenValidity(){}
 
     useEffect(() => {
         if (isLoggedIn) {

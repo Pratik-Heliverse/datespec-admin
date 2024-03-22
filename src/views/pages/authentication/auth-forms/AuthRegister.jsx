@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'store';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -17,6 +17,7 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // third party
 import * as Yup from 'yup';
@@ -24,29 +25,41 @@ import { Formik } from 'formik';
 
 // project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
+import { ThemeMode } from 'config';
+
 import useAuth from 'hooks/useAuth';
+import useConfig from 'hooks/useConfig';
 import useScriptRef from 'hooks/useScriptRef';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
-import { openSnackbar } from 'store/slices/snackbar';
 
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import Google from 'assets/images/icons/google.svg';
+
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
-const JWTRegister = ({ ...others }) => {
+const FirebaseRegister = ({ ...others }) => {
     const theme = useTheme();
-    const navigate = useNavigate();
     const scriptedRef = useScriptRef();
-    const dispatch = useDispatch();
-
+    const downMD = useMediaQuery(theme.breakpoints.down('md'));
     const [showPassword, setShowPassword] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
 
+    const { borderRadius } = useConfig();
+
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState();
-    const { register } = useAuth();
+    const { firebaseRegister, firebaseGoogleSignIn } = useAuth();
+
+    const googleHandler = async () => {
+        try {
+            await firebaseGoogleSignIn();
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -69,6 +82,52 @@ const JWTRegister = ({ ...others }) => {
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
+                <Grid item xs={12}>
+                    <AnimateButton>
+                        <Button
+                            variant="outlined"
+                            fullWidth
+                            onClick={googleHandler}
+                            size="large"
+                            sx={{
+                                color: 'grey.700',
+                                bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.main' : 'grey.50',
+                                borderColor: theme.palette.mode === ThemeMode.DARK ? alpha(theme.palette.dark.light, 0.2) : 'grey.100'
+                            }}
+                        >
+                            <Box sx={{ mr: { xs: 1, sm: 2, width: '20px' } }}>
+                                <img src={Google} alt="google" width={16} height={16} style={{ marginRight: downMD ? 8 : 16 }} />
+                            </Box>
+                            Sign up with Google
+                        </Button>
+                    </AnimateButton>
+                </Grid>
+                <Grid item xs={12}>
+                    <Box sx={{ alignItems: 'center', display: 'flex' }}>
+                        <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                cursor: 'unset',
+                                m: 2,
+                                py: 0.5,
+                                px: 7,
+                                borderColor:
+                                    theme.palette.mode === ThemeMode.DARK
+                                        ? `${alpha(theme.palette.dark.light, 0.2)} !important`
+                                        : `${theme.palette.grey[100]} !important`,
+                                color: `${theme.palette.grey[900]}!important`,
+                                fontWeight: 500,
+                                borderRadius: `${borderRadius}px`
+                            }}
+                            disableRipple
+                            disabled
+                        >
+                            OR
+                        </Button>
+                        <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
+                    </Box>
+                </Grid>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
                         <Typography variant="subtitle1">Sign up with Email address</Typography>
@@ -77,38 +136,17 @@ const JWTRegister = ({ ...others }) => {
             </Grid>
 
             <Formik
-                initialValues={{
-                    email: '',
-                    password: '',
-                    firstName: '',
-                    lastName: '',
-                    submit: null
-                }}
+                initialValues={{ email: '', password: '', submit: null }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        await register(values.email, values.password, values.firstName, values.lastName);
+                        await firebaseRegister(values.email, values.password);
                         if (scriptedRef.current) {
                             setStatus({ success: true });
                             setSubmitting(false);
-                            dispatch(
-                                openSnackbar({
-                                    open: true,
-                                    message: 'Your registration has been successfully completed.',
-                                    variant: 'alert',
-                                    alert: {
-                                        color: 'success'
-                                    },
-                                    close: false
-                                })
-                            );
-
-                            setTimeout(() => {
-                                navigate('/login', { replace: true });
-                            }, 1500);
                         }
                     } catch (err) {
                         console.error(err);
@@ -122,17 +160,15 @@ const JWTRegister = ({ ...others }) => {
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
-                        <Grid container spacing={{ xs: 0, sm: 2 }}>
+                        <Grid container spacing={{ xs: 0, md: 2 }}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
                                     label="First Name"
                                     margin="normal"
-                                    name="firstName"
+                                    name="fname"
                                     type="text"
-                                    value={values.firstName}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid>
@@ -141,11 +177,9 @@ const JWTRegister = ({ ...others }) => {
                                     fullWidth
                                     label="Last Name"
                                     margin="normal"
-                                    name="lastName"
+                                    name="lname"
                                     type="text"
-                                    value={values.lastName}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid>
@@ -274,4 +308,4 @@ const JWTRegister = ({ ...others }) => {
     );
 };
 
-export default JWTRegister;
+export default FirebaseRegister;

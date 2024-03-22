@@ -7,6 +7,7 @@ import Loadable from 'ui-component/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 
 import { loader as productsLoader, productLoader } from 'api/products';
+import { applicationRoutes } from 'menu-items/explicitRoutes';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -27,8 +28,13 @@ const AppUserAccountProfile3 = Loadable(lazy(() => import('views/application/use
 const AppProfileCardStyle1 = Loadable(lazy(() => import('views/application/users/card/CardStyle1')));
 const AppProfileCardStyle2 = Loadable(lazy(() => import('views/application/users/card/CardStyle2')));
 const AppProfileCardStyle3 = Loadable(lazy(() => import('views/application/users/card/CardStyle3')));
-const AppProfileListStyle1 = Loadable(lazy(() => import('views/application/users/list/Style1')));
-const AppProfileListStyle2 = Loadable(lazy(() => import('views/application/users/list/Style2')));
+const UsersList = Loadable(lazy(() => import('views/application/users/list/Style1')));
+// const AppProfileListStyle2 = Loadable(lazy(() => import('views/application/users/list/Style2')));
+
+// application - tasks
+const TasksUserList = Loadable(lazy(() => import('views/application/tasks/userlist')));
+const TasksList = Loadable(lazy(() => import('views/application/tasks/taskList')));
+const TaskDetails = Loadable(lazy(() => import('views/application/tasks/taskDetails')));
 
 // application - customer routing
 const AppCustomerList = Loadable(lazy(() => import('views/application/customer/CustomerList')));
@@ -225,13 +231,26 @@ const MainRoutes = {
             element: <AppProfileCardStyle3 />
         },
         {
-            path: '/apps/user/list/list1',
-            element: <AppProfileListStyle1 />
+            path: applicationRoutes.users.list,
+            element: <UsersList />
         },
         {
-            path: '/apps/user/list/list2',
-            element: <AppProfileListStyle2 />
+            path: applicationRoutes.tasks.list,
+            element: <TasksUserList />
         },
+        {
+            path: applicationRoutes.tasks.view(),
+            element: <TasksList />
+        },
+        {
+            path: applicationRoutes.tasks.details(),
+            element: <TaskDetails />
+        },
+
+        // {
+        //     path: '/apps/user/list/list2',
+        //     element: <AppProfileListStyle2 />
+        // },
 
         {
             path: '/apps/customer/customer-list',

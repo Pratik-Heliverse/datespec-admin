@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer } from 'react';
+// import { useSearchParams } from 'react-router-dom';
 
 // third-party
 import firebase from 'firebase/compat/app';
@@ -10,6 +11,7 @@ import Loader from 'ui-component/Loader';
 
 import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
+// import axios from 'axios';
 
 // firebase initialize
 if (!firebase.apps.length) {
@@ -33,9 +35,10 @@ const initialState = {
 
 // ==============================|| FIREBASE CONTEXT & PROVIDER ||============================== //
 
-const FirebaseContext = createContext | (null > null);
+const FirebaseContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
+    // const [searchParams] = useSearchParams();
     const [state, dispatch] = useReducer(accountReducer, initialState);
 
     useEffect(
@@ -60,17 +63,24 @@ export const FirebaseProvider = ({ children }) => {
         []
     );
 
-    const firebaseEmailPasswordSignIn = (email, password) => firebase.auth().signInWithEmailAndPassword(email, password);
+    const firebaseEmailPasswordSignIn = async (email, password) => {
+        const res = await firebase.auth().signInWithEmailAndPassword(email, password);
+        // const token = await res.user.getIdToken();
+        // localStorage.setItem('idToken', token);
+        return res;
+    };
 
     const firebaseGoogleSignIn = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-
         return firebase.auth().signInWithPopup(provider);
     };
 
     const firebaseRegister = async (email, password) => firebase.auth().createUserWithEmailAndPassword(email, password);
 
-    const logout = () => firebase.auth().signOut();
+    const logout = () => {
+        // localStorage.removeItem('idToken');
+        return firebase.auth().signOut();
+    };
 
     const resetPassword = async (email) => {
         await firebase.auth().sendPasswordResetEmail(email);
@@ -91,7 +101,8 @@ export const FirebaseProvider = ({ children }) => {
                 firebaseGoogleSignIn,
                 logout,
                 resetPassword,
-                updateProfile
+                updateProfile,
+                dispatch
             }}
         >
             {children}

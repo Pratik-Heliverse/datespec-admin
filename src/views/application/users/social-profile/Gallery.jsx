@@ -11,7 +11,7 @@ import MainCard from 'ui-component/cards/MainCard';
 
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
-import { getGallery } from 'store/slices/user';
+import { getGallery } from 'store/slices/user2';
 
 // ==============================|| SOCIAL PROFILE - GALLERY ||============================== //
 

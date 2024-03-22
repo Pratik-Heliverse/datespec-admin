@@ -1,9 +1,15 @@
 import React from 'react';
+
+// Router imports
+import { useNavigate } from 'react-router-dom';
+import { applicationRoutes } from 'menu-items/explicitRoutes';
+
 import PropTypes from 'prop-types';
 // material-ui
 // import {  useTheme } from '@mui/material/styles';
-// import Chip from '@mui/material/Chip';
+import Chip from 'ui-component/extended/Chip';
 // import IconButton from '@mui/material/IconButton';
+import { Grid, Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,7 +28,7 @@ import Avatar from 'ui-component/extended/Avatar';
 import { ImagePath, getImageUrl } from 'utils/getImageUrl';
 
 // assets
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+// import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 // import BlockTwoToneIcon from '@mui/icons-material/BlockTwoTone';
 
@@ -31,19 +37,24 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const tableHead = [
     { id: 'id', title: 'Id', sx: { pl: 3 } },
     { id: 'user_profile', title: 'User Profile' },
-    { id: 'phone', title: 'Phone' },
-    { id: 'Role', title: 'Role' },
-    { id: 'signup_method', title: 'Signup Method' }
+    { id: 'tasks', title: 'Total Tasks' },
+    { id: 'premium_status', title: 'Membership' },
+    { id: 'actions', title: 'Actions' }
 ];
 
-UserList.propTypes = {
+TasksUserList.propTypes = {
     data: PropTypes.array,
     isLoading: PropTypes.bool,
     rowsPerPage: PropTypes.number
 };
 
-function UserList({ data = [], isLoading, rowsPerPage }) {
+function TasksUserList({ data = [], isLoading, rowsPerPage }) {
     // const theme = useTheme
+    const navigate = useNavigate();
+
+    const handleNavigate = (id) => {
+        navigate(applicationRoutes.tasks.view(id));
+    };
 
     return (
         <TableContainer>
@@ -72,26 +83,42 @@ function UserList({ data = [], isLoading, rowsPerPage }) {
                         {data &&
                             data.map((row, index) => (
                                 <TableRow hover key={index}>
-                                    <TableCell sx={{ pl: 3 }}>{row.id}</TableCell>
+                                    <TableCell sx={{ pl: 3 }}>{row?.id}</TableCell>
                                     <TableCell>
                                         <Stack direction="row" alignItems="center" spacing={2}>
-                                            <Avatar alt="User 1" src={getImageUrl(`${row.image}`, ImagePath.USERS)} />
+                                            <Avatar alt="User 1" src={getImageUrl(`${row?.image}`, ImagePath.USERS)} />
                                             <Stack>
                                                 <Stack direction="row" alignItems="center" spacing={0.25}>
-                                                    <Typography variant="subtitle1">{row.full_name}</Typography>
-                                                    {row.status === 'Active' && (
+                                                    <Typography variant="subtitle1">{row?.full_name}</Typography>
+                                                    {/* {row?.status === 'Active' && (
                                                         <CheckCircleIcon sx={{ color: 'success.dark', width: 14, height: 14 }} />
-                                                    )}
+                                                    )} */}
                                                 </Stack>
                                                 <Typography variant="subtitle2" noWrap>
-                                                    {row.email}
+                                                    {row?.email}
                                                 </Typography>
                                             </Stack>
                                         </Stack>
                                     </TableCell>
-                                    <TableCell>{row.phone}</TableCell>
-                                    <TableCell>{row.role}</TableCell>
-                                    <TableCell>{row.provider}</TableCell>
+                                    <TableCell>{row?._count?.tasks}</TableCell>
+                                    <TableCell>
+                                        <Grid item>
+                                            <Chip label="Default" chipcolor="default" />
+                                            {/* <Chip label="Secondary" chipcolor="secondary" /> */}
+                                        </Grid>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Button
+                                            onClick={() => {
+                                                handleNavigate(row?.id);
+                                            }}
+                                            size="small"
+                                            variant="outlined"
+                                            color="secondary"
+                                        >
+                                            View {'>'}
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                     </TableBody>
@@ -101,4 +128,4 @@ function UserList({ data = [], isLoading, rowsPerPage }) {
     );
 }
 
-export default UserList;
+export default TasksUserList;

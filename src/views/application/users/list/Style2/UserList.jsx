@@ -21,7 +21,7 @@ import { ImagePath, getImageUrl } from 'utils/getImageUrl';
 
 import { gridSpacing } from 'store/constant';
 import { dispatch, useSelector } from 'store';
-import { getUsersListStyle2 } from 'store/slices/user';
+import { getUsersListStyle2 } from 'store/slices/user2';
 
 // asset
 import Avatar1 from 'assets/images/users/avatar-1.png';

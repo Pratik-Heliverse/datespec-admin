@@ -1,4 +1,4 @@
-import { memo, useLayoutEffect, useState } from 'react';
+import { memo, useState } from 'react';
 
 // material-ui
 import Box from '@mui/material/Box';
@@ -14,9 +14,10 @@ import menuItem from 'menu-items';
 import useConfig from 'hooks/useConfig';
 
 import { MenuOrientation } from 'config';
-import { Menu } from 'menu-items/widget';
+// import { Menu } from 'menu-items/widget';
 import { HORIZONTAL_MAX_ITEM } from 'config';
-import { useGetMenu, useGetMenuMaster } from 'api/menu';
+// import { useGetMenu, useGetMenuMaster } from 'api/menu';
+import { useGetMenuMaster } from 'api/menu';
 
 // ==============================|| SIDEBAR MENU LIST ||============================== //
 
@@ -24,34 +25,34 @@ const MenuList = () => {
     const downMD = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
     const { menuOrientation } = useConfig();
-    const { menuLoading } = useGetMenu();
+    // const { menuLoading } = useGetMenu();
     const { menuMaster } = useGetMenuMaster();
     const drawerOpen = menuMaster.isDashboardDrawerOpened;
     const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downMD;
 
     const [selectedID, setSelectedID] = useState('');
-    const [menuItems, setMenuItems] = useState({ items: [] });
+    const [menuItems, setMenuItems] = useState({ items: [...menuItem.items] });
 
-    let widgetMenu = Menu();
+    // let widgetMenu = Menu();
 
-    useLayoutEffect(() => {
-        const isFound = menuItem.items.some((element) => {
-            if (element.id === 'group-widget') {
-                return true;
-            }
-            return false;
-        });
-        if (menuLoading) {
-            menuItem.items.splice(1, 0, widgetMenu);
-            setMenuItems({ items: [...menuItem.items] });
-        } else if (!menuLoading && widgetMenu?.id !== undefined && !isFound) {
-            menuItem.items.splice(1, 1, widgetMenu);
-            setMenuItems({ items: [...menuItem.items] });
-        } else {
-            setMenuItems({ items: [...menuItem.items] });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [menuLoading]);
+    // useLayoutEffect(() => {
+    //     const isFound = menuItem.items.some((element) => {
+    //         if (element.id === 'group-widget') {
+    //             return true;
+    //         }
+    //         return false;
+    //     });
+    //     if (menuLoading) {
+    //         menuItem.items.splice(1, 0, widgetMenu);
+    //         setMenuItems({ items: [...menuItem.items] });
+    //     } else if (!menuLoading && widgetMenu?.id !== undefined && !isFound) {
+    //         menuItem.items.splice(1, 1, widgetMenu);
+    //         setMenuItems({ items: [...menuItem.items] });
+    //     } else {
+    //         setMenuItems({ items: [...menuItem.items] });
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [menuLoading]);
 
     // last menu-item to show in horizontal menu bar
     const lastItem = isHorizontal ? HORIZONTAL_MAX_ITEM : null;

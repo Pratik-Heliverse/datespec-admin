@@ -20,7 +20,7 @@ import TextField from '@mui/material/TextField';
 import AddClient from '../Client/AddClient';
 
 import { dispatch, useSelector } from 'store';
-import { getDetailCards } from 'store/slices/user';
+import { getDetailCards } from 'store/slices/user2';
 
 // assets
 import AddIcon from '@mui/icons-material/Add';
