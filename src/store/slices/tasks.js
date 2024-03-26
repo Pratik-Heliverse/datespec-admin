@@ -10,7 +10,12 @@ function createInitialState() {
         isLoading: false,
         error: null,
         userTasks: [],
-        taskDetails: {}
+        taskDetails: {},
+        userTaskAnalytics: {
+            isLoading: false,
+            data: {},
+            error: null
+        }
     };
 }
 
@@ -26,13 +31,16 @@ export default slice.reducer;
 function createExtraActions() {
     return {
         getUserTasks: getUserTasks(),
-        getTaskDetails: getTaskDetails()
+        getTaskDetails: getTaskDetails(),
+        getUserTasksAnalytics: getUserTasksAnalytics()
     };
 
     function getUserTasks() {
-        return createAsyncThunk(`${name}/getUsersTasks`, async (uid) => {
+        return createAsyncThunk(`${name}/getUsersTasks`, async ({ uid, filters }) => {
             try {
-                return await axios.get(`/tasks/user/${uid}`);
+                return await axios.get(
+                    `/tasks/user/${uid}?title=${filters?.title ?? ''}&attachments=${filters?.attachments}&startDate=${filters?.startDate ?? ''}&endDate=${filters?.endDate ?? ''}`
+                );
             } catch (error) {
                 return error;
             }
@@ -48,12 +56,24 @@ function createExtraActions() {
             }
         });
     }
+
+    function getUserTasksAnalytics() {
+        return createAsyncThunk(`${name}/getUserTaskAnalytics`, async (type) => {
+            try {
+                // TODO: Update this api call according to backend
+                return await axios.get(`/tasks/${type}`);
+            } catch (error) {
+                return error;
+            }
+        });
+    }
 }
 
 // Reducers
 function createExtraReducers(builder) {
     getUserTasksReducer(builder);
     getTaskDetailsReducer(builder);
+    getUserTasksAnalytics(builder);
 
     function getUserTasksReducer(builder) {
         const { fulfilled, pending, rejected } = extraActions.getUserTasks;
@@ -86,6 +106,23 @@ function createExtraReducers(builder) {
             state.isLoading = false;
             state.error = action.payload?.message || 'Failed to fetch task details';
             state.taskDetails = {};
+        });
+    }
+
+    function getUserTasksAnalytics(builder) {
+        const { fulfilled, pending, rejected } = extraActions.getUserTasksAnalytics;
+        builder.addCase(pending, (state) => {
+            state.userTaskAnalytics.isLoading = true;
+        });
+        builder.addCase(fulfilled, (state, action) => {
+            state.userTaskAnalytics.isLoading = false;
+            state.userTaskAnalytics.error = null;
+            state.userTaskAnalytics.data = action.payload?.data?.data;
+        });
+        builder.addCase(rejected, (state, action) => {
+            state.userTaskAnalytics.isLoading = false;
+            state.userTaskAnalytics.error = action.payload?.message || 'Failed to fetch task analytics';
+            state.userTaskAnalytics.data = {};
         });
     }
 }
