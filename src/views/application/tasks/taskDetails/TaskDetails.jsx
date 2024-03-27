@@ -20,7 +20,7 @@ import LinkIcon from '@mui/icons-material/Link';
 
 // UTILS
 import { fDateTime } from 'utils/formatDate';
-import NoData from 'ui-component/custom/NoData';
+import NoData from 'ui-component/custom/NoDataCard';
 
 TaskDetails.propTypes = {
     taskData: PropTypes.object

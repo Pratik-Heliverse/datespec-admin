@@ -10,6 +10,7 @@ function createInitialState() {
         isLoading: false,
         error: null,
         userTasks: [],
+        totalUserTasks: 0,
         taskDetails: {},
         userTaskAnalytics: {
             isLoading: false,
@@ -37,10 +38,15 @@ function createExtraActions() {
 
     function getUserTasks() {
         return createAsyncThunk(`${name}/getUsersTasks`, async ({ uid, filters }) => {
+            const reqString = Object.entries(filters).reduce((prev, curr) => {
+                if (curr[1] && curr[1] !== 'all') {
+                    return `${prev}&${curr[0]}=${curr[1]}`;
+                }
+                return prev;
+            }, `/tasks/user/${uid}?`);
+            console.log(Object.entries(filters), reqString);
             try {
-                return await axios.get(
-                    `/tasks/user/${uid}?title=${filters?.title ?? ''}&attachments=${filters?.attachments}&startDate=${filters?.startDate ?? ''}&endDate=${filters?.endDate ?? ''}`
-                );
+                return await axios.get(reqString);
             } catch (error) {
                 return error;
             }
@@ -82,12 +88,14 @@ function createExtraReducers(builder) {
         });
         builder.addCase(fulfilled, (state, action) => {
             state.isLoading = false;
-            state.userTasks = action.payload?.data?.data || [];
+            state.userTasks = action.payload?.data?.data ?? [];
+            state.totalUserTasks = action.payload?.data?.total ?? 0;
             state.error = null;
         });
         builder.addCase(rejected, (state, action) => {
             state.isLoading = false;
             state.userTasks = [];
+            state.totalUserTasks = 0;
             state.error = action.payload?.message || 'Failed to fetch user tasks';
         });
     }

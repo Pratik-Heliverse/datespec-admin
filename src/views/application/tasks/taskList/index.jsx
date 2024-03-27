@@ -25,15 +25,15 @@ import useDebounce from 'hooks/useDebounce';
 const TaskList = () => {
     const { id: uid } = useParams();
 
-    const { userTasks, isLoading } = useSelector((state) => state.tasks);
+    const { userTasks, isLoading, totalUserTasks } = useSelector((state) => state.tasks);
     const { getUserTasks } = taskActions;
     const { currentPage, handleCurrentPage, handleRowsPerPage, rowsPerPage } = usePagination();
 
     const [title, setTitle] = useState('');
     const [filters, setFilters] = useState({
-        attachments: 'all',
-        startDate: null,
-        endDate: null
+        attachment: 'all',
+        from: null,
+        to: null
     });
 
     const debouncedTitle = useDebounce(title, 500);
@@ -48,9 +48,9 @@ const TaskList = () => {
 
     useEffect(() => {
         if (uid) {
-            dispatch(getUserTasks({ uid, filters: { ...filters, title: debouncedTitle } }));
+            dispatch(getUserTasks({ uid, filters: { ...filters, title: debouncedTitle, rowsPerPage, currentPage } }));
         }
-    }, [uid, filters, debouncedTitle]);
+    }, [uid, filters, debouncedTitle, rowsPerPage, currentPage]);
 
     return (
         <MainCard
@@ -64,10 +64,15 @@ const TaskList = () => {
             content={false}
         >
             <TaskListAnalytics />
-            <TaskListToolbar handleChangeFilters={handleChangeFilters} title={title} handleChangeTitle={handleChangeTitle} />
+            <TaskListToolbar
+                filters={filters}
+                handleChangeFilters={handleChangeFilters}
+                title={title}
+                handleChangeTitle={handleChangeTitle}
+            />
             <TaskListTable data={userTasks} isLoading={isLoading} rowsPerPage={userTasks.length} />
             <PaginationCustom
-                totalEntries={userTasks.length}
+                totalEntries={totalUserTasks}
                 currentPage={currentPage}
                 rowsPerPage={rowsPerPage}
                 handleCurrentPage={handleCurrentPage}

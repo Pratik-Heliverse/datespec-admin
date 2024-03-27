@@ -19,6 +19,7 @@ import TableRow from '@mui/material/TableRow';
 import SkeletonTotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 // import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import NoData from 'ui-component/custom/NoDataCard';
 
 // import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone';
 // import BlockTwoToneIcon from '@mui/icons-material/BlockTwoTone';
@@ -64,6 +65,7 @@ function TaskListTable({ data = [], isLoading, rowsPerPage }) {
                         ))}
                     </TableRow>
                 </TableHead>
+
                 {isLoading ? (
                     <TableBody>
                         {Array.from(Array(rowsPerPage)).map((ele, index) => (
@@ -74,78 +76,79 @@ function TaskListTable({ data = [], isLoading, rowsPerPage }) {
                             </TableRow>
                         ))}
                     </TableBody>
-                ) : (
+                ) : Array.isArray(data) ? (
                     <TableBody>
-                        {data &&
-                            data.map((row, index) => (
-                                <TableRow hover key={index}>
-                                    <TableCell sx={tableHead[0]?.sx} align={tableHead[0]?.align}>
-                                        {index + 1}.
-                                    </TableCell>
-                                    <TableCell sx={tableHead[1]?.sx} align={tableHead[1]?.align}>
-                                        <Typography>{row?.title || '-'}</Typography>
-                                    </TableCell>
-                                    <TableCell sx={tableHead[2]?.sx} align={tableHead[2]?.align}>
-                                        {row?._count?.attachments ?? '-'}
-                                    </TableCell>
-                                    <TableCell sx={tableHead[3]?.sx} align={tableHead[3]?.align}>
-                                        <Chip
-                                            label={row?.repeat_id ? 'Enabled' : 'Disabled'}
-                                            chipcolor={row?.repeat_id ? 'success' : 'error'}
-                                            // variant={'outlined'}
-                                        />
-                                    </TableCell>
-                                    <TableCell sx={tableHead[3]?.sx} align={tableHead[3]?.align}>
-                                        <Chip
-                                            label={row?.scheduleTime_id ? 'Enabled' : 'Disabled'}
-                                            chipcolor={row?.scheduleTime_id ? 'success' : 'error'}
-                                            // variant={'outlined'}
-                                        />
-                                    </TableCell>
-                                    <TableCell sx={tableHead[4]?.sx} align={tableHead[4]?.align}>
-                                        {/* <Chip label="Completed" chipcolor="success" /> */}
-                                        {/* <Chip label="Missed" chipcolor="error" /> */}
-                                        <Chip
-                                            label={`${row?.isArchive}`}
-                                            chipcolor={row?.isArchived ? 'success' : 'error'}
-                                            variant={'outlined'}
-                                        />
-                                    </TableCell>
-                                    <TableCell sx={tableHead[4]?.sx} align={tableHead[4]?.align}>
-                                        {/* <Chip label="Completed" chipcolor="success" /> */}
-                                        {/* <Chip label="Missed" chipcolor="error" /> */}
-                                        <Chip
-                                            label={`${row?.isPriority}`}
-                                            chipcolor={row?.isPriority ? 'success' : 'error'}
-                                            variant={'outlined'}
-                                        />
-                                    </TableCell>
-                                    <TableCell sx={tableHead[4]?.sx} align={tableHead[4]?.align}>
-                                        {/* <Chip label="Completed" chipcolor="success" /> */}
-                                        {/* <Chip label="Missed" chipcolor="error" /> */}
-                                        <Chip
-                                            label={row?.isCompleted ? 'Completed' : 'Pending'}
-                                            chipcolor={row?.isCompleted ? 'success' : 'default'}
-                                        />
-                                    </TableCell>
-                                    <TableCell sx={tableHead[5]?.sx} align={tableHead[5]?.align}>
-                                        <Typography>{row?.assignedToList?.title ?? ''}</Typography>
-                                    </TableCell>
-                                    <TableCell sx={tableHead[6]?.sx} align={tableHead[6]?.align}>
-                                        <Button
-                                            onClick={() => {
-                                                handleNavigate(row?.id);
-                                            }}
-                                            size="small"
-                                            variant="outlined"
-                                            color="secondary"
-                                        >
-                                            Details {'>'}
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                        {data?.map((row, index) => (
+                            <TableRow hover key={index}>
+                                <TableCell sx={tableHead[0]?.sx} align={tableHead[0]?.align}>
+                                    {index + 1}.
+                                </TableCell>
+                                <TableCell sx={tableHead[1]?.sx} align={tableHead[1]?.align}>
+                                    <Typography>{row?.title || '-'}</Typography>
+                                </TableCell>
+                                <TableCell sx={tableHead[2]?.sx} align={tableHead[2]?.align}>
+                                    {row?._count?.attachments ?? '-'}
+                                </TableCell>
+                                <TableCell sx={tableHead[3]?.sx} align={tableHead[3]?.align}>
+                                    <Chip
+                                        label={row?.repeat_id ? 'Enabled' : 'Disabled'}
+                                        chipcolor={row?.repeat_id ? 'success' : 'error'}
+                                        // variant={'outlined'}
+                                    />
+                                </TableCell>
+                                <TableCell sx={tableHead[3]?.sx} align={tableHead[3]?.align}>
+                                    <Chip
+                                        label={row?.scheduleTime_id ? 'Enabled' : 'Disabled'}
+                                        chipcolor={row?.scheduleTime_id ? 'success' : 'error'}
+                                        // variant={'outlined'}
+                                    />
+                                </TableCell>
+                                <TableCell sx={tableHead[4]?.sx} align={tableHead[4]?.align}>
+                                    {/* <Chip label="Completed" chipcolor="success" /> */}
+                                    {/* <Chip label="Missed" chipcolor="error" /> */}
+                                    <Chip
+                                        label={`${row?.isArchive}`}
+                                        chipcolor={row?.isArchived ? 'success' : 'error'}
+                                        variant={'outlined'}
+                                    />
+                                </TableCell>
+                                <TableCell sx={tableHead[4]?.sx} align={tableHead[4]?.align}>
+                                    {/* <Chip label="Completed" chipcolor="success" /> */}
+                                    {/* <Chip label="Missed" chipcolor="error" /> */}
+                                    <Chip
+                                        label={`${row?.isPriority}`}
+                                        chipcolor={row?.isPriority ? 'success' : 'error'}
+                                        variant={'outlined'}
+                                    />
+                                </TableCell>
+                                <TableCell sx={tableHead[4]?.sx} align={tableHead[4]?.align}>
+                                    {/* <Chip label="Completed" chipcolor="success" /> */}
+                                    {/* <Chip label="Missed" chipcolor="error" /> */}
+                                    <Chip
+                                        label={row?.isCompleted ? 'Completed' : 'Pending'}
+                                        chipcolor={row?.isCompleted ? 'success' : 'default'}
+                                    />
+                                </TableCell>
+                                <TableCell sx={tableHead[5]?.sx} align={tableHead[5]?.align}>
+                                    <Typography>{row?.assignedToList?.title ?? ''}</Typography>
+                                </TableCell>
+                                <TableCell sx={tableHead[6]?.sx} align={tableHead[6]?.align}>
+                                    <Button
+                                        onClick={() => {
+                                            handleNavigate(row?.id);
+                                        }}
+                                        size="small"
+                                        variant="outlined"
+                                        color="secondary"
+                                    >
+                                        Details {'>'}
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
+                ) : (
+                    <NoData colSpan={tableHead.length} />
                 )}
             </Table>
         </TableContainer>
