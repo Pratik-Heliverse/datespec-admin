@@ -1,22 +1,5 @@
-export const taskAnalyticsChartData = {
-    series: [
-        {
-            name: 'Total',
-            data: [44, 55, 57, 56, 61, 58, 63]
-        },
-        {
-            name: 'Rescheduled',
-            data: [76, 85, 101, 98, 87, 105, 91]
-        },
-        {
-            name: 'Pending',
-            data: [76, 32, 17, 52, 33, 22, 35]
-        },
-        {
-            name: 'Completed',
-            data: [35, 41, 36, 26, 45, 48, 52]
-        }
-    ],
+export const taskAnalyticsChartData = (taskData) => ({
+    series: taskData?.series || [],
     type: 'bar',
     height: 350,
     options: {
@@ -34,7 +17,7 @@ export const taskAnalyticsChartData = {
             colors: ['transparent']
         },
         xaxis: {
-            categories: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+            categories: taskData?.categories || []
         },
         yaxis: {
             title: {
@@ -50,4 +33,4 @@ export const taskAnalyticsChartData = {
             }
         }
     }
-};
+});

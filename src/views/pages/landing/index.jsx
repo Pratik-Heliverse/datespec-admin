@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -22,7 +25,11 @@ import { ThemeMode } from 'config';
 
 const Landing = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        navigate('/login');
+    }, []);
     return (
         <>
             {/* 1. header and hero section */}

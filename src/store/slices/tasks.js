@@ -44,7 +44,7 @@ function createExtraActions() {
                 }
                 return prev;
             }, `/tasks/user/${uid}?`);
-            console.log(Object.entries(filters), reqString);
+
             try {
                 return await axios.get(reqString);
             } catch (error) {
@@ -64,10 +64,10 @@ function createExtraActions() {
     }
 
     function getUserTasksAnalytics() {
-        return createAsyncThunk(`${name}/getUserTaskAnalytics`, async (type) => {
+        return createAsyncThunk(`${name}/getUserTaskAnalytics`, async ({ uid, from, to }) => {
             try {
                 // TODO: Update this api call according to backend
-                return await axios.get(`/tasks/${type}`);
+                return await axios.get(`/tasks/analytics/${uid}?from=${from}&to=${to}`);
             } catch (error) {
                 return error;
             }

@@ -63,7 +63,7 @@ const TaskList = () => {
             }
             content={false}
         >
-            <TaskListAnalytics />
+            <TaskListAnalytics uid={uid} />
             <TaskListToolbar
                 filters={filters}
                 handleChangeFilters={handleChangeFilters}
