@@ -28,8 +28,6 @@ function TaskListAnalytics({ uid }) {
 
     const taskData = useMemo(() => getUserTasknAlyticsData(data?.dayTaskCounts, from, to, duration), [from, to, uid, isLoading]);
 
-    // console.log({ taskData });
-
     const handleDuratinChange = (e) => {
         setDuration(e.target.value);
         if (e.target.value === 'week') {
@@ -61,13 +59,13 @@ function TaskListAnalytics({ uid }) {
                         <Grid item>
                             <Typography variant="h2">Activity </Typography>
                             <Typography variant="subtitle2" mt={1}>
-                                Activity of user in last 4 weeks
+                                Activity of user in last {duration}
                             </Typography>
                         </Grid>
                         <Grid item md={1} xs={3}>
                             <TextField size={'small'} select label={'For'} value={duration} onChange={handleDuratinChange} fullWidth>
-                                <MenuItem value={'week'}> This Week</MenuItem>
-                                <MenuItem value={'month'}> This Month</MenuItem>
+                                <MenuItem value={'week'}> Last Week</MenuItem>
+                                <MenuItem value={'month'}> Last Month</MenuItem>
                             </TextField>
                         </Grid>
                     </Grid>

@@ -29,7 +29,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // ==============================|| USER LIST 1 ||============================== //
 
 const tableHead = [
-    { id: 'id', title: 'Id', sx: { pl: 3 } },
+    { id: '#', title: '#', sx: { pl: 3 } },
     { id: 'user_profile', title: 'User Profile' },
     { id: 'phone', title: 'Phone' },
     { id: 'Role', title: 'Role' },
@@ -44,6 +44,17 @@ UserList.propTypes = {
 
 function UserList({ data = [], isLoading, rowsPerPage }) {
     // const theme = useTheme
+
+    const getProvider = (provider) => {
+        switch (provider) {
+            case 'password':
+                return 'Email';
+            case 'google.com':
+                return 'Google';
+            default:
+                return provider;
+        }
+    };
 
     return (
         <TableContainer>
@@ -72,7 +83,7 @@ function UserList({ data = [], isLoading, rowsPerPage }) {
                         {data &&
                             data.map((row, index) => (
                                 <TableRow hover key={index}>
-                                    <TableCell sx={{ pl: 3 }}>{row.id}</TableCell>
+                                    <TableCell sx={{ pl: 3 }}>{index + 1}.</TableCell>
                                     <TableCell>
                                         <Stack direction="row" alignItems="center" spacing={2}>
                                             <Avatar alt="User 1" src={getImageUrl(`${row.image}`, ImagePath.USERS)} />
@@ -89,9 +100,9 @@ function UserList({ data = [], isLoading, rowsPerPage }) {
                                             </Stack>
                                         </Stack>
                                     </TableCell>
-                                    <TableCell>{row.phone}</TableCell>
+                                    <TableCell>{row.phone ?? '-'}</TableCell>
                                     <TableCell>{row.role}</TableCell>
-                                    <TableCell>{row.provider}</TableCell>
+                                    <TableCell>{getProvider(row.provider)}</TableCell>
                                 </TableRow>
                             ))}
                     </TableBody>

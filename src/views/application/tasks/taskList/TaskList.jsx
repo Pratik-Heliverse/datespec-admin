@@ -34,7 +34,7 @@ const tableHead = [
     { id: 'Repeat', title: 'Repeat', sx: { width: 150 }, align: 'center' },
     { id: 'Schedule', title: 'Scheduled', sx: { width: 150 }, align: 'center' },
     { id: 'archived', sx: { width: 150 }, align: 'center', title: 'Archived' },
-    { id: 'priority', sx: { width: 150 }, align: 'center', title: 'Priority' },
+    { id: 'priority', sx: { width: 150 }, align: 'center', title: 'Prioritized' },
     { id: 'completed', title: 'Status', sx: { width: 150 }, align: 'center' },
     { id: 'assigned_to_list', title: 'Assigned List', sx: { width: 150 }, align: 'center' },
     { id: 'actions', title: 'Actions', sx: { width: 200 }, align: 'center' }

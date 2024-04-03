@@ -21,16 +21,16 @@ export const taskAnalyticsChartData = (taskData) => ({
         },
         yaxis: {
             title: {
-                text: '$ (thousands)'
-            }
-        },
-
-        tooltip: {
-            y: {
-                formatter: function (val) {
-                    return '$ ' + val + ' thousands';
-                }
+                text: 'No. of tasks'
             }
         }
+
+        // tooltip: {
+        //     y: {
+        //         formatter: function (val) {
+        //             return '$ ' + val + ' thousands';
+        //         }
+        //     }
+        // }
     }
 });

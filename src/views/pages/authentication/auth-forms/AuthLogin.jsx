@@ -69,7 +69,7 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                     <AnimateButton>
                         <Button
                             disableElevation
@@ -89,8 +89,8 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
                             Sign in with Google
                         </Button>
                     </AnimateButton>
-                </Grid>
-                <Grid item xs={12}>
+                </Grid> */}
+                {/* <Grid item xs={12}>
                     <Box
                         sx={{
                             alignItems: 'center',
@@ -122,7 +122,7 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
 
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
                     </Box>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
                         <Typography variant="subtitle1">Sign in with Email address</Typography>
@@ -132,8 +132,8 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
 
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
+                    email: '',
+                    password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -169,7 +169,7 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
                                 name="email"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                label="Email Address / Username"
+                                label="Email Address"
                                 inputProps={{}}
                             />
                             {touched.email && errors.email && (
@@ -226,7 +226,7 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
                                 }
                                 label="Remember me"
                             />
-                            <Typography
+                            {/* <Typography
                                 variant="subtitle1"
                                 component={Link}
                                 to={
@@ -238,7 +238,7 @@ const FirebaseLogin = ({ loginProp }, { ...others }) => {
                                 sx={{ textDecoration: 'none' }}
                             >
                                 Forgot Password?
-                            </Typography>
+                            </Typography> */}
                         </Stack>
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>
