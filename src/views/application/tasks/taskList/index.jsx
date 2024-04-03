@@ -48,7 +48,7 @@ const TaskList = () => {
 
     useEffect(() => {
         if (uid) {
-            dispatch(getUserTasks({ uid, filters: { ...filters, title: debouncedTitle, rowsPerPage, currentPage } }));
+            dispatch(getUserTasks({ uid, filters: { ...filters, title: debouncedTitle, limit: rowsPerPage, page: currentPage } }));
         }
     }, [uid, filters, debouncedTitle, rowsPerPage, currentPage]);
 

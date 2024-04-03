@@ -49,98 +49,99 @@ const application = {
         {
             id: 'users',
             title: <FormattedMessage id="Users" />,
-            type: 'collapse',
+            type: 'item',
             icon: icons.IconUserCheck,
-            children: [
-                // {
-                //     id: 'posts',
-                //     title: <FormattedMessage id="social-profile" />,
-                //     type: 'item',
-                //     link: '/apps/user/social-profile/:tab',
-                //     url: '/apps/user/social-profile/posts',
-                //     breadcrumbs: false
-                // },
-                // {
-                //     id: 'account-profile',
-                //     title: <FormattedMessage id="account-profile" />,
-                //     type: 'collapse',
-                //     children: [
-                //         {
-                //             id: 'profile1',
-                //             title: (
-                //                 <>
-                //                     <FormattedMessage id="profile" /> 01
-                //                 </>
-                //             ),
-                //             type: 'item',
-                //             url: '/apps/user/account-profile/profile1'
-                //         },
-                //         {
-                //             id: 'profile2',
-                //             title: (
-                //                 <>
-                //                     <FormattedMessage id="profile" /> 02
-                //                 </>
-                //             ),
-                //             type: 'item',
-                //             url: '/apps/user/account-profile/profile2'
-                //         },
-                //         {
-                //             id: 'profile3',
-                //             title: (
-                //                 <>
-                //                     <FormattedMessage id="profile" /> 03
-                //                 </>
-                //             ),
-                //             type: 'item',
-                //             url: '/apps/user/account-profile/profile3'
-                //         }
-                //     ]
-                // },
-                // {
-                //     id: 'user-card',
-                //     title: <FormattedMessage id="cards" />,
-                //     type: 'collapse',
-                //     children: [
-                //         {
-                //             id: 'card1',
-                //             title: (
-                //                 <>
-                //                     <FormattedMessage id="style" /> 01
-                //                 </>
-                //             ),
-                //             type: 'item',
-                //             url: '/apps/user/card/card1'
-                //         },
-                //         {
-                //             id: 'card2',
-                //             title: (
-                //                 <>
-                //                     <FormattedMessage id="style" /> 02
-                //                 </>
-                //             ),
-                //             type: 'item',
-                //             url: '/apps/user/card/card2'
-                //         },
-                //         {
-                //             id: 'card3',
-                //             title: (
-                //                 <>
-                //                     <FormattedMessage id="style" /> 03
-                //                 </>
-                //             ),
-                //             type: 'item',
-                //             url: '/apps/user/card/card3'
-                //         }
-                //     ]
-                // },
-                {
-                    id: 'list',
-                    title: <FormattedMessage id="list" />,
-                    type: 'item',
-                    url: explicitApplicationRoutes.users.list
-                }
-            ]
+            url: explicitApplicationRoutes.users.list
+            // children: [
+            //     // {
+            //     //     id: 'posts',
+            //     //     title: <FormattedMessage id="social-profile" />,
+            //     //     type: 'item',
+            //     //     link: '/apps/user/social-profile/:tab',
+            //     //     url: '/apps/user/social-profile/posts',
+            //     //     breadcrumbs: false
+            //     // },
+            //     // {
+            //     //     id: 'account-profile',
+            //     //     title: <FormattedMessage id="account-profile" />,
+            //     //     type: 'collapse',
+            //     //     children: [
+            //     //         {
+            //     //             id: 'profile1',
+            //     //             title: (
+            //     //                 <>
+            //     //                     <FormattedMessage id="profile" /> 01
+            //     //                 </>
+            //     //             ),
+            //     //             type: 'item',
+            //     //             url: '/apps/user/account-profile/profile1'
+            //     //         },
+            //     //         {
+            //     //             id: 'profile2',
+            //     //             title: (
+            //     //                 <>
+            //     //                     <FormattedMessage id="profile" /> 02
+            //     //                 </>
+            //     //             ),
+            //     //             type: 'item',
+            //     //             url: '/apps/user/account-profile/profile2'
+            //     //         },
+            //     //         {
+            //     //             id: 'profile3',
+            //     //             title: (
+            //     //                 <>
+            //     //                     <FormattedMessage id="profile" /> 03
+            //     //                 </>
+            //     //             ),
+            //     //             type: 'item',
+            //     //             url: '/apps/user/account-profile/profile3'
+            //     //         }
+            //     //     ]
+            //     // },
+            //     // {
+            //     //     id: 'user-card',
+            //     //     title: <FormattedMessage id="cards" />,
+            //     //     type: 'collapse',
+            //     //     children: [
+            //     //         {
+            //     //             id: 'card1',
+            //     //             title: (
+            //     //                 <>
+            //     //                     <FormattedMessage id="style" /> 01
+            //     //                 </>
+            //     //             ),
+            //     //             type: 'item',
+            //     //             url: '/apps/user/card/card1'
+            //     //         },
+            //     //         {
+            //     //             id: 'card2',
+            //     //             title: (
+            //     //                 <>
+            //     //                     <FormattedMessage id="style" /> 02
+            //     //                 </>
+            //     //             ),
+            //     //             type: 'item',
+            //     //             url: '/apps/user/card/card2'
+            //     //         },
+            //     //         {
+            //     //             id: 'card3',
+            //     //             title: (
+            //     //                 <>
+            //     //                     <FormattedMessage id="style" /> 03
+            //     //                 </>
+            //     //             ),
+            //     //             type: 'item',
+            //     //             url: '/apps/user/card/card3'
+            //     //         }
+            //     //     ]
+            //     // },
+            //     // {
+            //     //     id: 'list',
+            //     //     title: <FormattedMessage id="list" />,
+            //     //     type: 'item',
+            //     //     url: explicitApplicationRoutes.users.list
+            //     // }
+            // ]
         },
         {
             id: 'tasks',

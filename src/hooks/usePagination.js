@@ -6,6 +6,7 @@ export function usePagination(props) {
 
     const handleRowsPerPage = (value) => {
         setRowsPerPage(value);
+        setCurrentPage(1);
     };
 
     const handleCurrentPage = (e, value) => {

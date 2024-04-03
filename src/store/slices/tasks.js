@@ -66,7 +66,6 @@ function createExtraActions() {
     function getUserTasksAnalytics() {
         return createAsyncThunk(`${name}/getUserTaskAnalytics`, async ({ uid, from, to }) => {
             try {
-                // TODO: Update this api call according to backend
                 return await axios.get(`/tasks/analytics/${uid}?from=${from}&to=${to}`);
             } catch (error) {
                 return error;

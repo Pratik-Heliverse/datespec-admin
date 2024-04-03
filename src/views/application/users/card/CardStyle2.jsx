@@ -14,8 +14,8 @@ import Typography from '@mui/material/Typography';
 import UserSimpleCard from 'ui-component/cards/UserSimpleCard';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
-import { dispatch, useSelector } from 'store';
-import { getSimpleCards, filterSimpleCards } from 'store/slices/user2';
+import { useSelector } from 'store';
+// import { getSimpleCards, filterSimpleCards } from 'store/slices/user2';
 
 // assets
 import { IconSearch } from '@tabler/icons-react';
@@ -39,20 +39,20 @@ const CardStyle2 = () => {
         setUsers(simpleCards);
     }, [simpleCards]);
 
-    React.useEffect(() => {
-        dispatch(getSimpleCards());
-    }, []);
+    // React.useEffect(() => {
+    //     dispatch(getSimpleCards());
+    // }, []);
 
     const [search, setSearch] = React.useState('');
     const handleSearch = async (event) => {
         const newString = event?.target.value;
         setSearch(newString);
 
-        if (newString) {
-            dispatch(filterSimpleCards(newString));
-        } else {
-            dispatch(getSimpleCards());
-        }
+        // if (newString) {
+        //     dispatch(filterSimpleCards(newString));
+        // } else {
+        //     dispatch(getSimpleCards());
+        // }
     };
 
     let usersResult = <></>;

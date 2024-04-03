@@ -14,8 +14,8 @@ import Typography from '@mui/material/Typography';
 import UserDetailsCard from 'ui-component/cards/UserDetailsCard';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
-import { dispatch, useSelector } from 'store';
-import { getDetailCards, filterDetailCards } from 'store/slices/user2';
+import { useSelector } from 'store';
+// import { getDetailCards, filterDetailCards } from 'store/slices/user';
 
 // assets
 import { IconSearch } from '@tabler/icons-react';
@@ -31,9 +31,9 @@ const CardStyle1 = () => {
         setUsers(detailCards);
     }, [detailCards]);
 
-    React.useEffect(() => {
-        dispatch(getDetailCards());
-    }, []);
+    // React.useEffect(() => {
+    //     dispatch(getDetailCards());
+    // }, []);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
@@ -49,11 +49,11 @@ const CardStyle1 = () => {
         const newString = event?.target.value;
         setSearch(newString);
 
-        if (newString) {
-            dispatch(filterDetailCards(newString));
-        } else {
-            dispatch(getDetailCards());
-        }
+        // if (newString) {
+        //     dispatch(filterDetailCards(newString));
+        // } else {
+        //     dispatch(getDetailCards());
+        // }
     };
 
     let usersResult = <></>;

@@ -31,6 +31,7 @@ const ListStylePage1 = () => {
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
+        handleCurrentPage({}, 0);
     };
 
     React.useEffect(() => {
