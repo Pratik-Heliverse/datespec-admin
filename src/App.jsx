@@ -19,8 +19,6 @@ import { FirebaseProvider as AuthProvider } from 'contexts/FirebaseContext';
 // import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
 // import { Auth0Provider as AuthProvider } from 'contexts/Auth0Context';
 
-// ==============================|| APP ||============================== //
-
 const App = () => {
     return (
         <ThemeCustomization>
