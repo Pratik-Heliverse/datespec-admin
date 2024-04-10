@@ -12,6 +12,7 @@ import { applicationRoutes } from 'menu-items/explicitRoutes';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
+const DashboardStatistics = Loadable(lazy(() => import('views/dashboard/statistics')));
 
 // widget routing
 const WidgetStatistics = Loadable(lazy(() => import('views/widget/Statistics')));
@@ -702,8 +703,12 @@ const MainRoutes = {
             element: <DashboardDefault />
         },
         {
-            path: '/dashboard/analytics',
+            path: '/dashboard/analytics-2',
             element: <DashboardAnalytics />
+        },
+        {
+            path: '/dashboard/statistics',
+            element: <DashboardStatistics />
         }
     ]
 };

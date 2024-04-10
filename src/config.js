@@ -1,4 +1,4 @@
-export const DASHBOARD_PATH = '/apps/user/list';
+export const DASHBOARD_PATH = '/dashboard/statistics';
 export const HORIZONTAL_MAX_ITEM = 7;
 
 export const MenuOrientation = {

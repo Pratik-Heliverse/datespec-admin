@@ -17,22 +17,30 @@ const dashboard = {
     icon: icons.IconDashboard,
     type: 'group',
     children: [
+        // {
+        //     id: 'default',
+        //     title: <FormattedMessage id="default" />,
+        //     type: 'item',
+        //     url: '/dashboard/default',
+        //     icon: icons.IconDashboard,
+        //     breadcrumbs: false
+        // },
         {
-            id: 'default',
-            title: <FormattedMessage id="default" />,
+            id: 'statistics',
+            title: <FormattedMessage id="statistics" />,
             type: 'item',
-            url: '/dashboard/default',
-            icon: icons.IconDashboard,
-            breadcrumbs: false
-        },
-        {
-            id: 'analytics',
-            title: <FormattedMessage id="analytics" />,
-            type: 'item',
-            url: '/dashboard/analytics',
+            url: '/dashboard/statistics',
             icon: icons.IconDeviceAnalytics,
             breadcrumbs: false
         }
+        // {
+        //     id: 'analytics-2',
+        //     title: <FormattedMessage id="analytics-2" />,
+        //     type: 'item',
+        //     url: '/dashboard/analytics-2',
+        //     icon: icons.IconDeviceAnalytics,
+        //     breadcrumbs: false
+        // }
     ]
 };
 
