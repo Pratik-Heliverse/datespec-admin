@@ -1,5 +1,5 @@
 export const signUpSourcesChart = {
-    height: 300,
+    height: 350,
     type: 'donut',
     options: {
         chart: {

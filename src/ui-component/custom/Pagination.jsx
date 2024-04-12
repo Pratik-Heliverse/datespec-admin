@@ -23,7 +23,8 @@ function PaginationCustom({
     currentPage = 1,
     handleRowsPerPage,
     handleCurrentPage,
-    rowsPerPage = 10
+    rowsPerPage = 10,
+    ...others
 }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
@@ -46,7 +47,7 @@ function PaginationCustom({
     // }, [rowOpts]);
 
     return (
-        <Grid item xs={12} sx={{ p: 3 }}>
+        <Grid item xs={12} sx={{ p: others?.size === 'small' ? 1 : 3 }}>
             <Grid container justifyContent="space-between" spacing={gridSpacing}>
                 <Grid item>
                     <Pagination

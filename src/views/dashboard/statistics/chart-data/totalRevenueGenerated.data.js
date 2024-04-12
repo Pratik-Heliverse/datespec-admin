@@ -2,7 +2,7 @@
 
 export const totalRevenueGeneratedData = {
     type: 'bar',
-    height: 380,
+    height: 350,
     options: {
         colors: ['#29314f'],
         chart: {

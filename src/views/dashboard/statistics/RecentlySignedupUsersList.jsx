@@ -13,6 +13,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { gridSpacing } from 'store/constant';
 import { CSVExport } from 'views/forms/tables/TableExports';
+import PaginationCustom from 'ui-component/custom/Pagination';
 
 // table data
 
@@ -23,7 +24,8 @@ const rows = [
         email: 'john@example.com',
         contact: '123-456-7890',
         subscriptionType: 'Premium',
-        signupMethod: 'Email'
+        signupMethod: 'Email',
+        signedUpDate: '2024-04-12'
     },
     {
         id: 2,
@@ -31,7 +33,8 @@ const rows = [
         email: 'jane@example.com',
         contact: '987-654-3210',
         subscriptionType: 'Basic',
-        signupMethod: 'Google'
+        signupMethod: 'Google',
+        signedUpDate: '2024-04-11'
     },
     {
         id: 3,
@@ -39,7 +42,8 @@ const rows = [
         email: 'alice@example.com',
         contact: '456-789-0123',
         subscriptionType: 'Premium',
-        signupMethod: 'Facebook'
+        signupMethod: 'Facebook',
+        signedUpDate: '2024-04-10'
     },
     {
         id: 4,
@@ -47,7 +51,8 @@ const rows = [
         email: 'michael@example.com',
         contact: '789-012-3456',
         subscriptionType: 'Basic',
-        signupMethod: 'Email'
+        signupMethod: 'Email',
+        signedUpDate: '2024-04-09'
     },
     {
         id: 5,
@@ -55,7 +60,8 @@ const rows = [
         email: 'emily@example.com',
         contact: '012-345-6789',
         subscriptionType: 'Premium',
-        signupMethod: 'Google'
+        signupMethod: 'Google',
+        signedUpDate: '2024-04-08'
     },
     {
         id: 6,
@@ -63,7 +69,8 @@ const rows = [
         email: 'david@example.com',
         contact: '345-678-9012',
         subscriptionType: 'Basic',
-        signupMethod: 'Facebook'
+        signupMethod: 'Facebook',
+        signedUpDate: '2024-04-07'
     },
     {
         id: 7,
@@ -71,7 +78,8 @@ const rows = [
         email: 'emma@example.com',
         contact: '678-901-2345',
         subscriptionType: 'Premium',
-        signupMethod: 'Email'
+        signupMethod: 'Email',
+        signedUpDate: '2024-04-06'
     },
     {
         id: 8,
@@ -79,7 +87,8 @@ const rows = [
         email: 'james@example.com',
         contact: '901-234-5678',
         subscriptionType: 'Basic',
-        signupMethod: 'Google'
+        signupMethod: 'Google',
+        signedUpDate: '2024-04-05'
     },
     {
         id: 9,
@@ -87,7 +96,8 @@ const rows = [
         email: 'sophia@example.com',
         contact: '234-567-8901',
         subscriptionType: 'Premium',
-        signupMethod: 'Facebook'
+        signupMethod: 'Facebook',
+        signedUpDate: '2024-04-04'
     },
     {
         id: 10,
@@ -95,7 +105,8 @@ const rows = [
         email: 'william@example.com',
         contact: '567-890-1234',
         subscriptionType: 'Basic',
-        signupMethod: 'Email'
+        signupMethod: 'Email',
+        signedUpDate: '2024-04-03'
     }
 ];
 
@@ -105,7 +116,8 @@ export const header = [
     { label: 'Email', key: 3 },
     { label: 'Contact', key: 4 },
     { label: 'Subscription', key: 5 },
-    { label: 'Signup Method', key: 6 }
+    { label: 'Signup Method', key: 6 },
+    { label: 'Signup Date', key: 7 }
 ];
 // ==============================|| TABLE - BASIC ||============================== //
 
@@ -115,7 +127,7 @@ export default function RecentlySignedupUsersList() {
             <Grid item xs={12}>
                 <MainCard
                     content={false}
-                    title="Recently Onboared Userlist"
+                    title="Recently Onboarded Userlist"
                     secondary={
                         <Stack direction="row" spacing={2} alignItems="center">
                             <CSVExport data={rows} filename={'basic-table.csv'} header={header} />
@@ -144,10 +156,12 @@ export default function RecentlySignedupUsersList() {
                                         <TableCell align="left">{row.contact}</TableCell>
                                         <TableCell align="left">{row.subscriptionType}</TableCell>
                                         <TableCell align="left">{row.signupMethod}</TableCell>
+                                        <TableCell align="left">{row.signedUpDate}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
+                        <PaginationCustom size={'small'} />
                     </TableContainer>
                 </MainCard>
             </Grid>

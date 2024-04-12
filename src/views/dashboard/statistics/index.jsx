@@ -4,6 +4,9 @@ import NewUsersChart from './NewUsersChart';
 import { gridSpacing } from 'store/constant';
 
 import AccountCircleTwoTone from '@mui/icons-material/AccountCircleTwoTone';
+import SellTwoToneIcon from '@mui/icons-material/SellTwoTone';
+import WorkspacePremiumTwoToneIcon from '@mui/icons-material/WorkspacePremiumTwoTone';
+import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
 import { AndroidOutlined, Apple, SupervisedUserCircleTwoTone, LockClockOutlined } from '@mui/icons-material';
 import UserSIgninSourcesChart from './UsersSignUpSourcesChart';
 import RecentlySignedupUsersList from './RecentlySignedupUsersList';
@@ -14,7 +17,9 @@ import NewSubscriptionsChart from './NewSubscriptionsChart';
 import TotalRevenueGeneratedChart from './TotalRevenueGeneratedChart';
 import { totalRevenueGeneratedData } from './chart-data/totalRevenueGenerated.data';
 import ReportCard from 'ui-component/cards/ReportCard';
-import PaymentMethodDistributionChart from './PaymentMethodsDistributionChart';
+// import PaymentMethodDistributionChart from './PaymentMethodsDistributionChart';
+import SideIconCard from 'ui-component/cards/SideIconCard';
+import RecentTransactionsList from './RecentTransactionsList';
 
 function Statistics() {
     return (
@@ -77,7 +82,8 @@ function Statistics() {
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12} md={4}>
                         {/* <NewSubscriptionsChart /> */}
-                        <PaymentMethodDistributionChart />
+                        {/* <PaymentMethodDistributionChart /> */}
+                        <UserSIgninSourcesChart />
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <TotalRevenueGeneratedChart chartData={totalRevenueGeneratedData} />
@@ -88,18 +94,40 @@ function Statistics() {
                         <NewSubscriptionsChart />
                     </Grid>
                     <Grid item xs={12} md={4}>
-                        <Stack gap={gridSpacing}>
-                            {/* <SideIconCard
-                                iconPrimary={IconBrandApple}
-                                primary="2,672"
-                                secondary="Average Session Duration"
-                                secondarySub="(in Mins)"
-                                color="secondary.dark"
-                            /> */}
-                            <UserSIgninSourcesChart />
-                        </Stack>
+                        <Grid container spacing={gridSpacing}>
+                            <Grid item xs={12}>
+                                <SideIconCard
+                                    iconPrimary={SellTwoToneIcon}
+                                    primary="563"
+                                    secondary="Total accounts with"
+                                    secondarySub="free trial"
+                                    color="warning.dark"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <SideIconCard
+                                    iconPrimary={ErrorTwoToneIcon}
+                                    primary="245"
+                                    secondary="Total"
+                                    secondarySub="expired free trials"
+                                    color="error.dark"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <SideIconCard
+                                    iconPrimary={WorkspacePremiumTwoToneIcon}
+                                    primary="330"
+                                    secondary="Free trials"
+                                    secondarySub="converted to premium"
+                                    color="success.dark"
+                                />
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
+                <Box>
+                    <RecentTransactionsList />
+                </Box>
                 <Box>
                     <RecentlySignedupUsersList />
                 </Box>

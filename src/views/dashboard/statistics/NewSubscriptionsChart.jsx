@@ -88,11 +88,8 @@ const NewSubscriptionsChart = () => {
                 </TextField>
             }
         >
-            {/* <Box py={3} pl={3}>
-                <Typography variant="h3"></Typography>
-            </Box> */}
             <div id="chart">
-                <ReactApexChart options={options} series={series} type="line" height={250} />
+                <ReactApexChart options={options} series={series} type="line" height={200} />
             </div>
         </MainCard>
     );
