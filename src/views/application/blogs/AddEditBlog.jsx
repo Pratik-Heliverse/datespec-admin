@@ -3,16 +3,14 @@ import PropType from 'prop-types';
 import MainCard from 'ui-component/cards/MainCard';
 import { Typography, Box, Card, Stack } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
-// import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// import { LoadingButton } from '@mui/lab';
-// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { FormProvider, RHFTextField, RHFEditor, RHFSwitch } from 'components/hook-form';
 import { useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import RHFUploadSingleFile from 'components/hook-form/RHFUpload';
 import { gridSpacing } from 'store/constant';
+import { handleFirebaseUpload } from 'utils/fileUpload';
 
 AddEditBlog.propTypes = {
     edit: PropType.bool
@@ -51,8 +49,21 @@ function AddEditBlog({ edit = false }) {
     });
     const {
         handleSubmit,
+        setValue,
         formState: { errors, isSubmitting }
     } = methods;
+
+    const handleImageDrop = async (files) => {
+        try {
+            if (Array.isArray(files) && files[0]) {
+                const file = files[0];
+                const res = await handleFirebaseUpload({ file });
+                setValue('featuredImage', res);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     console.log({ errors });
 
@@ -69,7 +80,7 @@ function AddEditBlog({ edit = false }) {
                     <Stack direction={'column'} gap={gridSpacing}>
                         <Box mb={2}>
                             <Card variant="outlined">
-                                <RHFUploadSingleFile name="feature_image" onDrop={() => {}} onRemove={() => {}} />
+                                <RHFUploadSingleFile name="feature_image" onDrop={handleImageDrop} onRemove={() => {}} />
                             </Card>
                             {errors.featuredImage && (
                                 <Typography variant="caption" color={'error'}>
