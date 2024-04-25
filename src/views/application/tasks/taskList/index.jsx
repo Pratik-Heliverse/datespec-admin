@@ -9,14 +9,15 @@ import Typography from '@mui/material/Typography';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
-import { dispatch, useSelector } from 'store';
+// import { dispatch, useSelector } from 'store';
+import { dispatch } from 'store';
 import { taskActions } from 'store/slices/tasks';
 // assets
 
-import TaskListTable from './TaskList';
-import PaginationCustom from 'ui-component/custom/Pagination';
+// import TaskListTable from './TaskList';
+// import PaginationCustom from 'ui-component/custom/Pagination';
 import { usePagination } from 'hooks/usePagination';
-import TaskListToolbar from './TaskListToolbar';
+// import TaskListToolbar from './TaskListToolbar';
 import TaskListAnalytics from './TaskListAnalytics';
 import useDebounce from 'hooks/useDebounce';
 
@@ -25,9 +26,10 @@ import useDebounce from 'hooks/useDebounce';
 const TaskList = () => {
     const { id: uid } = useParams();
 
-    const { userTasks, isLoading, totalUserTasks } = useSelector((state) => state.tasks);
+    // const { userTasks, isLoading, totalUserTasks } = useSelector((state) => state.tasks);
     const { getUserTasks } = taskActions;
-    const { currentPage, handleCurrentPage, handleRowsPerPage, rowsPerPage } = usePagination();
+    // const { currentPage, handleCurrentPage, handleRowsPerPage, rowsPerPage } = usePagination();
+    const { currentPage, rowsPerPage } = usePagination();
 
     const [title, setTitle] = useState('');
     const [filters, setFilters] = useState({
@@ -68,6 +70,7 @@ const TaskList = () => {
             content={false}
         >
             <TaskListAnalytics uid={uid} />
+            {/* 
             <TaskListToolbar
                 filters={filters}
                 handleChangeFilters={handleChangeFilters}
@@ -82,6 +85,7 @@ const TaskList = () => {
                 handleCurrentPage={handleCurrentPage}
                 handleRowsPerPage={handleRowsPerPage}
             />
+            */}
         </MainCard>
     );
 };
