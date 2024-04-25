@@ -11,7 +11,8 @@ import {
     IconLayoutKanban,
     IconMail,
     IconCalendar,
-    IconNfc
+    IconNfc,
+    IconBrandBlogger
 } from '@tabler/icons-react';
 
 // constant
@@ -24,7 +25,8 @@ const icons = {
     IconLayoutKanban,
     IconMail,
     IconCalendar,
-    IconNfc
+    IconNfc,
+    IconBrandBlogger
 };
 
 // ==============================|| MENU ITEMS - APPLICATION ||============================== //
@@ -37,6 +39,12 @@ export const explicitApplicationRoutes = {
         list: '/apps/tasks/user-list',
         view: (id) => `/apps/tasks/${id ?? ':id'}/list`,
         details: (taskId) => `/apps/tasks/${taskId ?? ':taskId'}/details`
+    },
+    blogs: {
+        list: '/apps/blogs/list',
+        view: (id) => `/apps/tasks/${id ?? ':id'}/view`,
+        edit: (id) => `/apps/tasks/${id ?? ':id'}/edit`,
+        create: `/apps/tasks/create`
     }
 };
 
@@ -151,6 +159,18 @@ const application = {
             url: explicitApplicationRoutes.tasks.list,
             link:
                 explicitApplicationRoutes.tasks.view() | explicitApplicationRoutes.tasks.view() | explicitApplicationRoutes.tasks.details()
+        },
+        {
+            id: 'blogs',
+            title: <FormattedMessage id="Blogs" />,
+            type: 'item',
+            icon: icons.IconBrandBlogger,
+            url: explicitApplicationRoutes.blogs.list,
+            link:
+                explicitApplicationRoutes.blogs.view() |
+                explicitApplicationRoutes.blogs.edit() |
+                explicitApplicationRoutes.blogs.create |
+                explicitApplicationRoutes.blogs.list
         }
         // {
         //     id: 'customer',

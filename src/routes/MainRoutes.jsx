@@ -8,6 +8,7 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 
 import { loader as productsLoader, productLoader } from 'api/products';
 import { applicationRoutes } from 'menu-items/explicitRoutes';
+import AddEditBlog from 'views/application/blogs/AddEditBlog';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -36,6 +37,9 @@ const UsersList = Loadable(lazy(() => import('views/application/users/list/Style
 const TasksUserList = Loadable(lazy(() => import('views/application/tasks/userlist')));
 const TasksList = Loadable(lazy(() => import('views/application/tasks/taskList')));
 const TaskDetails = Loadable(lazy(() => import('views/application/tasks/taskDetails')));
+
+// application - tasks
+const BlogsList = Loadable(lazy(() => import('views/application/blogs/BlogList')));
 
 // application - customer routing
 const AppCustomerList = Loadable(lazy(() => import('views/application/customer/CustomerList')));
@@ -246,6 +250,18 @@ const MainRoutes = {
         {
             path: applicationRoutes.tasks.details(),
             element: <TaskDetails />
+        },
+        {
+            path: applicationRoutes.blogs.list,
+            element: <BlogsList />
+        },
+        {
+            path: applicationRoutes.blogs.create,
+            element: <AddEditBlog />
+        },
+        {
+            path: applicationRoutes.blogs.edit(),
+            element: <AddEditBlog edit />
         },
 
         // {
