@@ -21,6 +21,8 @@ import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
 import useConfig from 'hooks/useConfig';
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 import { MenuOrientation } from 'config';
+import { blogActions } from 'store/slices/blogs';
+import { dispatch } from 'store';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -31,6 +33,7 @@ const MainLayout = () => {
     const { borderRadius, container, miniDrawer, menuOrientation } = useConfig();
     const { menuMaster, menuMasterLoading } = useGetMenuMaster();
     const drawerOpen = menuMaster?.isDashboardDrawerOpened;
+    const { getBlogs } = blogActions;
 
     useEffect(() => {
         handlerDrawerOpen(!miniDrawer);
@@ -39,6 +42,10 @@ const MainLayout = () => {
     useEffect(() => {
         downMD && handlerDrawerOpen(false);
     }, [downMD]);
+
+    useEffect(() => {
+        dispatch(getBlogs());
+    }, []);
 
     const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downMD;
 

@@ -59,54 +59,17 @@ export default function UploadSingleFile({ error = false, file, helperText, sx, 
                 <input {...getInputProps()} />
 
                 {<BlockContent />}
-
-                {file?.preview && (
-                    <Image
-                        alt="file preview"
-                        src={file.preview}
-                        sx={{
-                            top: 8,
-                            left: 8,
-                            borderRadius: 1,
-                            position: 'absolute',
-                            width: 'calc(100% - 16px)',
-                            height: '240px',
-                            objectFit: 'contain'
-                        }}
-                    />
-                )}
                 {file && typeof file === 'string' && (
                     <Image
                         alt="file preview"
-                        src={
-                            file.includes('media.veducation.world') || file.includes('cloudfront.net')
-                                ? file
-                                : `https://media.veducation.world${file}`
-                        }
+                        src={file}
                         sx={{
                             top: 8,
                             left: 8,
                             borderRadius: 1,
                             position: 'absolute',
                             width: 'calc(100% - 16px)',
-                            height: '240px',
-                            objectFit: 'contain',
-                            backgroundColor: '#fff'
-                        }}
-                    />
-                )}
-
-                {file && typeof file === 'object' && (
-                    <Image
-                        alt="file preview"
-                        src={window.URL.createObjectURL(file)}
-                        sx={{
-                            top: 8,
-                            left: 8,
-                            borderRadius: 1,
-                            position: 'absolute',
-                            width: 'calc(100% - 16px)',
-                            height: '240px',
+                            height: '100%',
                             objectFit: 'contain',
                             backgroundColor: '#fff'
                         }}

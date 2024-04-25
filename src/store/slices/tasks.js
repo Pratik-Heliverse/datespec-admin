@@ -43,7 +43,7 @@ function createExtraActions() {
                     return `${prev}&${curr[0]}=${curr[1]}`;
                 }
                 return prev;
-            }, `/tasks/user/${uid}?`);
+            }, `/admin/tasks/user/${uid}?`);
 
             try {
                 return await axios.get(reqString);
@@ -56,7 +56,7 @@ function createExtraActions() {
     function getTaskDetails() {
         return createAsyncThunk(`${name}/getTaskDetails`, async (taskId) => {
             try {
-                return await axios.get(`/tasks/${taskId}`);
+                return await axios.get(`/admin/tasks/${taskId}`);
             } catch (error) {
                 return error;
             }
@@ -66,7 +66,7 @@ function createExtraActions() {
     function getUserTasksAnalytics() {
         return createAsyncThunk(`${name}/getUserTaskAnalytics`, async ({ uid, from, to }) => {
             try {
-                return await axios.get(`/tasks/analytics/${uid}?from=${from}&to=${to}`);
+                return await axios.get(`/admin/tasks/analytics/${uid}?from=${from}&to=${to}`);
             } catch (error) {
                 return error;
             }

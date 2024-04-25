@@ -52,7 +52,6 @@ export default function RHFUploadSingleFile({ name, ...other }) {
             name={name}
             control={control}
             render={({ field, fieldState: { error } }) => {
-                // console.log(field);
                 const checkError = !!error && !field.value;
                 // console.log(field);
 

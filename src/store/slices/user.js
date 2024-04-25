@@ -41,7 +41,7 @@ function createExtraActions() {
     function getUsers() {
         return createAsyncThunk(`${name}/getUsers`, async ({ rowsPerPage, currentPage, search }) => {
             try {
-                const response = await axios.get(`/users?page=${currentPage}&limit=${rowsPerPage}&search=${search ?? ''}`);
+                const response = await axios.get(`/admin/users?page=${currentPage}&limit=${rowsPerPage}&search=${search ?? ''}`);
                 return response;
             } catch (error) {
                 return error.message;

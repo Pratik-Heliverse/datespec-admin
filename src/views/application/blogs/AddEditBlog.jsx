@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import PropType from 'prop-types';
 import MainCard from 'ui-component/cards/MainCard';
 import { Typography, Box, Card, Stack } from '@mui/material';
@@ -11,22 +12,39 @@ import { LoadingButton } from '@mui/lab';
 import RHFUploadSingleFile from 'components/hook-form/RHFUpload';
 import { gridSpacing } from 'store/constant';
 import { handleFirebaseUpload } from 'utils/fileUpload';
+import { useSelector } from 'store';
+import { dispatch } from 'store';
+import { blogActions } from 'store/slices/blogs';
+import { applicationRoutes } from 'menu-items/explicitRoutes';
 
 AddEditBlog.propTypes = {
     edit: PropType.bool
 };
 
 function AddEditBlog({ edit = false }) {
-    const defaultValues = {
-        title: '',
-        body: '',
-        readingTime: 0,
-        featuredImage: '',
-        category: 'HEALTH',
-        description: '',
-        status: '',
-        isFeatured: ''
-    };
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const { createBlog, updateBlog } = blogActions;
+    const { blogs = [] } = useSelector((state) => state.blogs);
+
+    const seletedBlog = blogs.find((blog) => blog?.id === id);
+
+    const [featuredImage, setFeaturedImage] = useState();
+
+    const defaultValues = useMemo(
+        () => ({
+            title: seletedBlog?.title || '',
+            body: seletedBlog?.body || '',
+            readingTime: seletedBlog?.readingTime || 0,
+            featuredImage: seletedBlog?.featuredImage || '',
+            category: seletedBlog?.category || 'HEALTH',
+            description: seletedBlog?.description || '',
+            status: seletedBlog?.status || false,
+            isFeatured: seletedBlog?.isFeatured || false
+        }),
+        [id, seletedBlog]
+    );
 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required(),
@@ -39,8 +57,51 @@ function AddEditBlog({ edit = false }) {
         isFeatured: Yup.string().required()
     });
 
+    const handleImageDrop = (files) => {
+        if (Array.isArray(files) && files[0]) {
+            setFeaturedImage(files[0]);
+            setValue('featuredImage', URL.createObjectURL(files[0]));
+        }
+    };
+
+    const uploadImage = async () => {
+        try {
+            if (featuredImage) {
+                const res = await handleFirebaseUpload({ file: featuredImage });
+                setValue('featuredImage', res);
+                return res;
+            }
+            return null;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleCancel = () => {
+        navigate(applicationRoutes.blogs.list);
+    };
+
     const onSubmit = async (data) => {
-        console.log({ data });
+        try {
+            // TODO: Make the BE to accept these values as well for creating and editing the blog.
+            delete data?.isFeatured;
+            delete data?.status;
+
+            const link = await uploadImage();
+            if (!edit) {
+                const res = await dispatch(createBlog({ ...data, featuredImage: link ?? data?.featuredImage }));
+                if (res.payload?.status === 201) {
+                    navigate(applicationRoutes.blogs.list);
+                }
+            } else {
+                const res = await dispatch(updateBlog({ ...data, featuredImage: link ?? data?.featuredImage, id }));
+                if (res.payload?.status === 200) {
+                    navigate(applicationRoutes.blogs.list);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const methods = useForm({
@@ -52,20 +113,6 @@ function AddEditBlog({ edit = false }) {
         setValue,
         formState: { errors, isSubmitting }
     } = methods;
-
-    const handleImageDrop = async (files) => {
-        try {
-            if (Array.isArray(files) && files[0]) {
-                const file = files[0];
-                const res = await handleFirebaseUpload({ file });
-                setValue('featuredImage', res);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    console.log({ errors });
 
     return (
         <MainCard title={<Typography>{edit ? 'Edit' : 'Create a new'} blog</Typography>}>
@@ -80,7 +127,7 @@ function AddEditBlog({ edit = false }) {
                     <Stack direction={'column'} gap={gridSpacing}>
                         <Box mb={2}>
                             <Card variant="outlined">
-                                <RHFUploadSingleFile name="feature_image" onDrop={handleImageDrop} onRemove={() => {}} />
+                                <RHFUploadSingleFile name="featuredImage" onDrop={handleImageDrop} onRemove={() => {}} />
                             </Card>
                             {errors.featuredImage && (
                                 <Typography variant="caption" color={'error'}>
@@ -90,7 +137,7 @@ function AddEditBlog({ edit = false }) {
                         </Box>
                         <RHFTextField name={'title'} label={'Title'} />
                         <RHFTextField name={'description'} label={'Description'} />
-                        <RHFTextField name={'reacingTime'} label={'Reading Time'} type={'number'} />
+                        <RHFTextField name={'readingTime'} label={'Reading Time'} type={'number'} />
                         <Box>
                             <RHFEditor name={'body'} label={'Body'} />
                             {errors.body && (
@@ -106,11 +153,11 @@ function AddEditBlog({ edit = false }) {
                                 <RHFSwitch name={'status'} label={'Active'} />
                             </Stack>
                             <Stack direction={'row'} spacing={gridSpacing} justifyContent={'flex-end'}>
-                                <LoadingButton type={'submit'} loading={isSubmitting}>
-                                    Submit
+                                <LoadingButton type={'submit'} variant="outlined" loading={isSubmitting}>
+                                    {edit ? 'Edit' : 'Submit'}
                                 </LoadingButton>
-                                <LoadingButton type={'submit'} loading={isSubmitting}>
-                                    Submit
+                                <LoadingButton onClick={handleCancel} color="error" variant="outlined" type={'submit'}>
+                                    Cancel
                                 </LoadingButton>
                             </Stack>
                         </Stack>
