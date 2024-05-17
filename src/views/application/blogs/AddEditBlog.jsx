@@ -53,8 +53,8 @@ function AddEditBlog({ edit = false }) {
         featuredImage: Yup.string().required('Image is required'),
         category: Yup.string().required(),
         description: Yup.string().required(),
-        status: Yup.string().required(),
-        isFeatured: Yup.string().required()
+        status: Yup.boolean().required(),
+        isFeatured: Yup.boolean().required()
     });
 
     const handleImageDrop = (files) => {
@@ -83,10 +83,6 @@ function AddEditBlog({ edit = false }) {
 
     const onSubmit = async (data) => {
         try {
-            // TODO: Make the BE to accept these values as well for creating and editing the blog.
-            delete data?.isFeatured;
-            delete data?.status;
-
             const link = await uploadImage();
             if (!edit) {
                 const res = await dispatch(createBlog({ ...data, featuredImage: link ?? data?.featuredImage }));

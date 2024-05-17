@@ -79,7 +79,6 @@ function TaskDetails({ taskData }) {
                             <Grid item>
                                 <Stack direction={'row'} alignItems={'center'} gap={1}>
                                     <Typography variant="h5">Assigned List:</Typography>
-                                    {/* TODO: Due wala issue */}
                                     <Typography>{taskData?.assignedToList?.title || '-'}</Typography>
                                 </Stack>
                             </Grid>
